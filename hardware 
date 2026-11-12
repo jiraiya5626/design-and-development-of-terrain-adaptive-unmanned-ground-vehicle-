@@ -1,0 +1,98 @@
+
+# Hardware Components – Six-Wheel ROS 2 Rover
+
+## 1. Main Computing Unit
+
+### Raspberry Pi 5 (4GB)
+- Acts as the main computing unit.
+- Runs Ubuntu 22.04.
+- Runs ROS 2 Humble.
+- Receives movement commands from the laptop over Wi-Fi.
+- Handles high-level robot control and sensor data processing.
+- Provides the platform for future AI integration.
+
+## 2. Motor Control Unit
+
+### ESP32 Dev Kit
+- Acts as the low-level motor controller.
+- Receives control commands from Raspberry Pi.
+- Generates motor direction and PWM signals.
+- Controls six individual N20 motors through three motor drivers.
+
+### TB6612FNG Motor Driver
+Quantity: 3
+
+- Each driver controls two DC motors.
+- Provides bidirectional motor control.
+- Supports PWM-based speed control.
+- Allows independent control of six motors using three drivers.
+
+## 3. Drive System
+
+### N20 Geared DC Motors
+Quantity: 6
+
+- Provides the rover's driving force.
+- Each wheel is driven by an individual motor.
+- Supports individual wheel movement and speed control.
+
+### Mechanical Suspension
+Type: Rocker-Bogie
+
+- Six-wheel mechanical arrangement.
+- Designed for improved wheel contact on uneven terrain.
+- Provides a platform for rough-terrain mobility.
+
+## 4. Power System
+
+### 2S Li-ion Battery
+- Nominal voltage: 7.4 V.
+- Supplies the rover's electrical power system.
+- Power distribution and voltage regulation must be designed for the motors, Raspberry Pi and ESP32.
+
+## 5. Sensor System
+
+### MPU6050
+- Measures acceleration and angular velocity.
+- Provides motion and orientation-related data.
+- Can support future terrain-condition analysis.
+
+### Ultrasonic Sensor
+- Measures distance to nearby objects.
+- Can support obstacle detection.
+
+### Camera
+- Provides visual information from the rover.
+- Intended for future computer vision and AI applications.
+
+### Additional Sensors
+- Additional sensor details will be documented after final component selection.
+
+## 6. Communication System
+
+### Laptop to Raspberry Pi
+- Communication: Wi-Fi.
+- Purpose: Remote operation and teleoperation.
+
+### Raspberry Pi to ESP32
+- Communication: Wi-Fi.
+- Purpose: Transfer of motor-control commands.
+
+## 7. Software Platform
+
+| Platform | Technology |
+|---|---|
+| Main computer | Raspberry Pi 5 |
+| Operating system | Ubuntu 22.04 |
+| Robotics middleware | ROS 2 Humble |
+| Motor controller | ESP32 |
+| Firmware development | Arduino IDE / ESP32 framework |
+| Robot communication | Wi-Fi |
+
+## 8. Future Development
+
+- AI-based terrain recognition.
+- Intelligent obstacle detection.
+- Autonomous navigation.
+- Sensor fusion.
+- AI-assisted rover control.
