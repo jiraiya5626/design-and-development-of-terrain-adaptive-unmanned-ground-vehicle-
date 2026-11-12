@@ -1,0 +1,87 @@
+#include <WiFi.h>
+
+// WiFi configuration
+const char* ssid = "YOUR_WIFI_NAME";
+const char* password = "YOUR_WIFI_PASSWORD";
+
+// TB6612FNG Driver 1
+#define AIN1 23
+#define AIN2 22
+#define PWMA 21
+#define BIN1 19
+#define BIN2 18
+#define PWMB 5
+
+// Driver 2 - placeholder GPIOs
+#define D2_AIN1 27
+#define D2_AIN2 26
+#define D2_PWMA 25
+#define D2_BIN1 33
+#define D2_BIN2 32
+#define D2_PWMB 14
+
+// Driver 3 - placeholder GPIOs
+#define D3_AIN1 13
+#define D3_AIN2 12
+#define D3_PWMA 4
+#define D3_BIN1 2
+#define D3_BIN2 15
+#define D3_PWMB 16
+
+#define STBY 17
+
+const int PWM_FREQ = 20000;
+const int PWM_RESOLUTION = 8;
+
+void setupMotor(int pin) {
+  pinMode(pin, OUTPUT);
+}
+
+void setMotor(int in1, int in2, int pwmPin, int speed) {
+  speed = constrain(speed, -255, 255);
+
+  digitalWrite(in1, speed >= 0 ? HIGH : LOW);
+  digitalWrite(in2, speed >= 0 ? LOW : HIGH);
+
+  analogWrite(pwmPin, abs(speed));
+}
+
+void setup() {
+  Serial.begin(115200);
+
+  int pins[] = {
+    AIN1, AIN2, BIN1, BIN2,
+    D2_AIN1, D2_AIN2, D2_BIN1, D2_BIN2,
+    D3_AIN1, D3_AIN2, D3_BIN1, D3_BIN2,
+    STBY
+  };
+
+  for (int pin : pins) {
+    pinMode(pin, OUTPUT);
+  }
+
+  int pwmPins[] = {
+    PWMA, PWMB, D2_PWMA, D2_PWMB,
+    D3_PWMA, D3_PWMB
+  };
+
+  for (int pin : pwmPins) {
+    pinMode(pin, OUTPUT);
+  }
+
+  digitalWrite(STBY, HIGH);
+
+  WiFi.begin(ssid, password);
+
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+
+  Serial.println("\nWiFi connected");
+  Serial.println(WiFi.localIP());
+}
+
+void loop() {
+  // Motor testing will be implemented here.
+}
